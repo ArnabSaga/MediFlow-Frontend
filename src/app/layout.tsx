@@ -16,6 +16,9 @@ export const metadata: Metadata = {
   title: "MediFlow - Healthcare Management Platform",
   description:
     "MediFlow is a production-grade healthcare management system built with modern web technologies, enabling secure multi-role authentication, appointment lifecycle management, digital prescriptions, payments, and medical record handling.",
+  icons: {
+    icon: "/icons/MediFlow-logo.png",
+  },
 };
 
 export default function RootLayout({
