@@ -12,12 +12,12 @@ export interface PaginationMeta {
   totalPages: number;
 }
 
-export interface ApiError {
-  success: boolean;
-  message: string;
-}
-
 export interface ApiRequestOptions {
   params?: Record<string, unknown>;
   headers?: Record<string, string>;
+}
+
+export interface ApiErrorResponse {
+  success: boolean;
+  message: string;
 }
