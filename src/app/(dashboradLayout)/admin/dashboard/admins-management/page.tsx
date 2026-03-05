@@ -1,4 +1,4 @@
-const AdminManagementPage = () => {
+const AdminsManagementPage = () => {
   return (
     <div>
       <h1>AdminManagementPage</h1>
@@ -6,4 +6,4 @@ const AdminManagementPage = () => {
   );
 };
 
-export default AdminManagementPage;
+export default AdminsManagementPage;
