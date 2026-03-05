@@ -8,7 +8,9 @@ const getErrorMessage = (error: unknown): string => {
     if (typeof error === "string") return error;
 
     if (error && typeof error === "object") {
-        if ("message" in error && typeof error.message === "string") return error.message;
+        if ("message" in error && typeof error.message === "string") {
+            return error.message;
+        }
     }
     return String(error);
 };
@@ -21,6 +23,7 @@ type AppFieldProps = {
     append?: React.ReactNode;
     prepend?: React.ReactNode;
     className?: string;
+    inputClassName?: string;
     disabled?: boolean;
 };
 
@@ -32,6 +35,7 @@ const AppField = ({
     append,
     prepend,
     className,
+    inputClassName,
     disabled = false,
 }: AppFieldProps) => {
     const firstError =
@@ -46,6 +50,7 @@ const AppField = ({
             <Label htmlFor={field.name} className={cn(hasError && "text-destructive")}>
                 {label}
             </Label>
+
             <div className="relative">
                 {prepend && (
                     <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none z-10">
@@ -68,16 +73,18 @@ const AppField = ({
                         "w-full",
                         prepend && "pl-10",
                         append && "pr-10",
-                        hasError && "border-destructive focus-visible:ring-destructive/20"
+                        hasError && "border-destructive focus-visible:ring-destructive/20",
+                        inputClassName
                     )}
                 />
 
                 {append && (
-                    <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none z-10">
+                    <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-auto z-10">
                         {append}
                     </div>
                 )}
             </div>
+
             {hasError && (
                 <p id={`${field.name}-error`} role="alert" className="text-sm text-destructive">
                     {firstError}
