@@ -18,9 +18,13 @@ import { ILoginPayload, loginZodSchema } from "@/zod/auth.validation";
 import { useForm } from "@tanstack/react-form";
 import { useMutation } from "@tanstack/react-query";
 import { Eye, EyeOff } from "lucide-react";
-import Image from 'next/image';
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+
+interface LoginFromProps {
+    redirectPath?: string;
+}
 
 const glassInputClass =
     "bg-white/15 border-white/25 text-white placeholder:text-white/55 " +
@@ -57,11 +61,11 @@ const PasswordInput = ({ field }: { field: any }) => {
     );
 };
 
-const LoginFrom = () => {
+const LoginFrom = ({ redirectPath }: LoginFromProps) => {
     const [serverError, setServerError] = useState<string | null>(null);
 
     const { mutateAsync, isPending } = useMutation({
-        mutationFn: (payload: ILoginPayload) => loginAction(payload),
+        mutationFn: (payload: ILoginPayload) => loginAction(payload, redirectPath),
     });
 
     const form = useForm({
