@@ -1,12 +1,7 @@
 export default function AdminDashboardLayout({
-  children,
+    children,
 }: Readonly<{
-  children: React.ReactNode;
+    children: React.ReactNode;
 }>) {
-  return (
-    <>
-      Admin Dashboard Layout
-      {children}
-    </>
-  );
+    return <>{children}</>;
 }
