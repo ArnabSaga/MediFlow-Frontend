@@ -1,7 +1,7 @@
 "use server";
 
 import { setTokenInCookies } from "@/lib/tokenUtils";
-import { cookies } from 'next/headers';
+import { cookies } from "next/headers";
 
 const BASE_API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -34,7 +34,7 @@ export async function getNewTokensWithRefreshToken(refreshToken: string): Promis
             await setTokenInCookies("refreshToken", newRefreshToken);
         }
         if (token) {
-            await setTokenInCookies("better-auth.session_token", token, 60 * 60 * 24);
+            await setTokenInCookies("better-auth.session_token", token, 24 * 60 * 60); // 1 day in seconds
         }
 
         return true;
@@ -45,32 +45,33 @@ export async function getNewTokensWithRefreshToken(refreshToken: string): Promis
 }
 
 export async function getUserInfo() {
-    const cookieStore = await cookies();
-    const accessToken = cookieStore.get("accessToken")?.value;
+    try {
+        const cookieStore = await cookies();
+        const accessToken = cookieStore.get("accessToken")?.value;
+        const sessionToken = cookieStore.get("better-auth.session_token")?.value;
 
-    if (!accessToken) {
-        return {
-            id: "",
-            email: "",
-            role: "",
-            emailVerified: false,
-            needPasswordChange: false,
-        };
-    }
+        if (!accessToken) {
+            return null;
+        }
 
-    const res = await fetch(`${BASE_API_URL}/auth/me`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            Cookie: `accessToken=${accessToken}`,
-        },
-    });
+        const res = await fetch(`${BASE_API_URL}/auth/me`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Cookie: `accessToken=${accessToken}; better-auth.session_token=${sessionToken}`,
+            },
+        });
 
-    if (!res.ok) {
+        if (!res.ok) {
+            console.error("Failed to fetch user info:", res.status, res.statusText);
+            return null;
+        }
+
+        const { data } = await res.json();
+
+        return data;
+    } catch (error) {
+        console.error("Error fetching user info:", error);
         return null;
     }
-
-    const { data } = await res.json();
-
-    return data;
 }
