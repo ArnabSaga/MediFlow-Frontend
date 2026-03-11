@@ -3,7 +3,7 @@ import DashboardSidebar from "@/components/modules/Dashboard/DashboardSidebar";
 
 const RootDashboradLayout = async ({ children }: { children: React.ReactNode }) => {
     return (
-        <div className="flex h-screen overflow-hidden">
+        <div className="flex h-dvh overflow-hidden">
             {/* Dashboard sidebar */}
             <DashboardSidebar />
 

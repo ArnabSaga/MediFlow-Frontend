@@ -24,7 +24,7 @@ const DashboardSidebarContent = ({
     const pathname = usePathname();
 
     return (
-        <aside className="hidden md:flex h-screen w-[272px] min-h-0 flex-col border-r border-slate-200 bg-white">
+        <aside className="hidden md:flex h-dvh w-[272px] flex-col overflow-hidden border-r border-slate-200 bg-white shadow-sm">
             {/* Brand */}
             <div className="shrink-0 border-b border-slate-200 px-5 py-4">
                 <Link
@@ -53,12 +53,12 @@ const DashboardSidebarContent = ({
             </div>
 
             {/* Navigation */}
-            <div className="min-h-0 flex-1">
+            <div className="flex-1 overflow-hidden">
                 <ScrollArea className="h-full">
-                    <div className="px-4 py-5 pb-8">
-                        <nav className="space-y-5">
+                    <div className="px-4 py-3 pb-4">
+                        <nav className="space-y-2">
                             {navItems.map((section, sectionId) => (
-                                <div key={sectionId} className="space-y-2.5">
+                                <div key={sectionId} className="space-y-1">
                                     {section.title && (
                                         <div className="px-2">
                                             <h4 className="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">
@@ -80,15 +80,15 @@ const DashboardSidebarContent = ({
                                                     key={itemId}
                                                     href={item.href}
                                                     className={cn(
-                                                        "group relative flex items-center gap-3 rounded-2xl px-3 py-2 transition-all duration-200",
+                                                        "group relative flex items-center gap-2.5 rounded-lg px-2.5 py-1.5 transition-all duration-200",
                                                         isActive
-                                                            ? "bg-slate-800 text-white shadow-[0_10px_24px_rgba(15,23,42,0.12)]"
+                                                            ? "bg-primary text-primary-foreground shadow-md shadow-primary/20"
                                                             : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
                                                     )}
                                                 >
                                                     <span
                                                         className={cn(
-                                                            "absolute left-0 top-1/2 h-7 w-1 -translate-y-1/2 rounded-r-full transition-all",
+                                                            "absolute left-0 top-1/2 h-5 w-1 -translate-y-1/2 rounded-r-full transition-all",
                                                             isActive
                                                                 ? "bg-cyan-400 opacity-100"
                                                                 : "opacity-0"
@@ -97,7 +97,7 @@ const DashboardSidebarContent = ({
 
                                                     <div
                                                         className={cn(
-                                                            "flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border transition-all",
+                                                            "flex h-7 w-7 shrink-0 items-center justify-center rounded-md border transition-all",
                                                             isActive
                                                                 ? "border-white/10 bg-white/10 text-white"
                                                                 : "border-slate-200 bg-slate-50 text-slate-500 group-hover:border-slate-300 group-hover:bg-white group-hover:text-slate-800"
@@ -106,7 +106,7 @@ const DashboardSidebarContent = ({
                                                         <Icon className="h-4 w-4" />
                                                     </div>
 
-                                                    <span className="truncate text-sm font-semibold">
+                                                    <span className="truncate text-[13px] font-semibold">
                                                         {item.title}
                                                     </span>
                                                 </Link>
@@ -115,7 +115,7 @@ const DashboardSidebarContent = ({
                                     </div>
 
                                     {sectionId < navItems.length - 1 && (
-                                        <Separator className="my-4 bg-slate-200/70" />
+                                        <Separator className="my-2 bg-slate-200/70" />
                                     )}
                                 </div>
                             ))}
@@ -125,18 +125,18 @@ const DashboardSidebarContent = ({
             </div>
 
             {/* User profile */}
-            <div className="shrink-0 border-t border-slate-200 p-4">
-                <div className="rounded-2xl border border-slate-200 bg-slate-50 p-3 shadow-sm">
-                    <div className="flex items-center gap-3">
-                        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-slate-900 text-sm font-bold text-white">
+            <div className="shrink-0 border-t border-slate-200 p-2.5">
+                <div className="rounded-xl border border-slate-200 bg-slate-50 p-2 shadow-sm">
+                    <div className="flex items-center gap-2">
+                        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-slate-900 text-[11px] font-bold text-white">
                             {userInfo.name?.charAt(0)?.toUpperCase()}
                         </div>
 
                         <div className="min-w-0 flex-1">
-                            <p className="truncate text-sm font-semibold text-slate-900">
+                            <p className="truncate text-[13px] font-semibold text-slate-900">
                                 {userInfo.name}
                             </p>
-                            <p className="truncate text-xs text-slate-500">{userInfo.email}</p>
+                            <p className="truncate text-[11px] text-slate-500">{userInfo.email}</p>
                             <p className="mt-1 inline-flex rounded-md bg-cyan-50 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.12em] text-cyan-700">
                                 {userInfo.role.replaceAll("_", " ")}
                             </p>
