@@ -81,7 +81,7 @@ const AppointmentBarChart = ({ data }: AppointmentBarChartProps) => {
 
             <CardContent className="pt-2">
                 <div className="h-[350px] w-full">
-                    <ResponsiveContainer width="100%" height="100%">
+                    <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
                         <BarChart
                             data={formattedData}
                             margin={{ top: 12, right: 12, left: -8, bottom: 8 }}
